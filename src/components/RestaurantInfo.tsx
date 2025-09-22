@@ -126,18 +126,18 @@ const RestaurantInfo = () => {
   const features = [
     {
       icon: <Star className="w-6 h-6 text-restaurant-gold" />,
-      title: "Cocina de Autor",
-      description: "Platos únicos creados por nuestro chef con ingredientes frescos y locales",
+      title: "El arte de la brasa",
+      description: "Platos únicos creados por nuestro chef con ingredientes frescos y de primera calidad",
     },
     {
       icon: <MapPin className="w-6 h-6 text-restaurant-gold" />,
       title: "Ubicación Privilegiada",
-      description: "En el corazón de la ciudad, con vistas espectaculares y fácil acceso",
+      description: "En el corazón de la ciudad, con un ambiente cálido y acogedor",
     },
     {
       icon: <Clock className="w-6 h-6 text-restaurant-gold" />,
       title: "Horarios Flexibles",
-      description: "Abierto todos los días con horarios de almuerzo y cena adaptados a ti",
+      description: "Abierto todos los días, con horarios de comida y cena adaptados a ti",
     },
   ];
   return (
@@ -146,8 +146,8 @@ const RestaurantInfo = () => {
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-4xl font-bold text-restaurant-brown mb-4">Sobre Nuestro Restaurante</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Más de 20 años creando experiencias gastronómicas únicas, combinando tradición culinaria con innovación
-            moderna en cada plato que servimos.
+            Desde 2019 creando experiencias gastronómicas únicas, combinando tradición culinaria con innovación moderna
+            en cada plato que servimos.
           </p>
         </div>
 

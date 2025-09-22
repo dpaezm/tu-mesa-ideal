@@ -63,6 +63,7 @@ const RestaurantLayout = () => {
   const snapToGrid = (value: number, containerSize: number) => {
     const pixelValue = (value / 100) * containerSize;
     const gridSnappedValue = Math.round(pixelValue / GRID_SIZE) * GRID_SIZE;
+
     return (Math.max(0, Math.min(containerSize, gridSnappedValue)) / containerSize) * 100;
   };
 
@@ -162,6 +163,7 @@ const RestaurantLayout = () => {
         <CardHeader>
           <CardTitle>Layout del Restaurante</CardTitle>
         </CardHeader>
+
         <CardContent>
           <div className="relative w-full h-96 overflow-auto">
             <div
