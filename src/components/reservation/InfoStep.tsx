@@ -83,8 +83,7 @@ const InfoStep = ({ onNext, onBack, selectedDate, selectedGuests, selectedTime, 
 
           <div>
             <label className="block text-sm font-medium mb-2">
-              Observaciones (¿Necesidades especiales? ¿Vienes con carrito? Cuéntanos toda la información que sea útil
-              para hacer tu experiencia lo mejor posible.)
+              Observaciones (¿Vienes con carrito? ¿Necesitas trona? No se admiten mascotas en el interior del local )
             </label>
             <Textarea
               value={formData.comments}
