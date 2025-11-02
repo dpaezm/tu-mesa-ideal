@@ -369,6 +369,9 @@ GRANT EXECUTE ON FUNCTION get_available_time_slots_with_zones(date, integer, int
 
 COMMENT ON FUNCTION get_available_time_slots_with_zones IS 'Obtiene TODOS los slots disponibles con TODAS las zonas disponibles para cada horario';
 
+=======
+
+
 
 -- ========================================
 -- FUNCIÓN 4: get_available_tables_for_reservation
@@ -668,6 +671,81 @@ GRANT EXECUTE ON FUNCTION public_create_reservation TO authenticated;
 
 COMMENT ON FUNCTION public_create_reservation IS 'API pública: Crea reserva con gestión automática de clientes y zona preferida opcional';
 
+
+-- ========================================
+-- FUNCIÓN 7: get_available_tables_for_reservation
+-- ========================================
+-- Obtiene mesas disponibles para el admin (con opción de excluir reserva en edición)
+-- ========================================
+
+-- Eliminar ambas versiones existentes (con y sin p_exclude_reservation_id)
+DROP FUNCTION IF EXISTS get_available_tables_for_reservation(date, time, integer);
+DROP FUNCTION IF EXISTS get_available_tables_for_reservation(date, time, integer, uuid);
+
+CREATE OR REPLACE FUNCTION get_available_tables_for_reservation(
+    p_date date,
+    p_time time,
+    p_duration_minutes integer DEFAULT 90,
+    p_exclude_reservation_id uuid DEFAULT NULL
+)
+RETURNS TABLE(
+    table_id uuid,
+    table_name text,
+    capacity integer,
+    extra_capacity integer,
+    total_capacity integer,
+    zone_id uuid,
+    zone_name text,
+    zone_color text,
+    is_available boolean
+)
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+    v_start_at timestamptz;
+    v_end_at timestamptz;
+BEGIN
+    -- Calcular timestamps
+    v_start_at := (p_date::text || ' ' || p_time::text)::timestamp AT TIME ZONE 'Europe/Madrid';
+    v_end_at := v_start_at + (p_duration_minutes || ' minutes')::interval;
+    
+    RETURN QUERY
+    WITH occupied_tables AS (
+        SELECT DISTINCT rta.table_id
+        FROM public.reservations r
+        INNER JOIN public.reservation_table_assignments rta ON r.id = rta.reservation_id
+        WHERE r.date = p_date
+          AND r.status IN ('confirmed', 'arrived')
+          AND r.start_at < v_end_at 
+          AND r.end_at > v_start_at
+          -- Excluir la reserva actual si estamos editando
+          AND (p_exclude_reservation_id IS NULL OR r.id != p_exclude_reservation_id)
+    )
+    SELECT 
+        t.id as table_id,
+        t.name as table_name,
+        t.capacity,
+        COALESCE(t.extra_capacity, 0) as extra_capacity,
+        t.capacity + COALESCE(t.extra_capacity, 0) as total_capacity,
+        z.id as zone_id,
+        COALESCE(z.name, 'Sin zona') as zone_name,
+        z.color as zone_color,
+        NOT EXISTS (
+            SELECT 1 FROM occupied_tables ot
+            WHERE ot.table_id = t.id
+        ) as is_available
+    FROM public.tables t
+    LEFT JOIN public.zones z ON t.zone_id = z.id
+    WHERE t.is_active = true
+    ORDER BY z.priority_order ASC NULLS LAST, t.name ASC;
+END;
+$$;
+
+GRANT EXECUTE ON FUNCTION get_available_tables_for_reservation(date, time, integer, uuid) TO authenticated;
+GRANT EXECUTE ON FUNCTION get_available_tables_for_reservation(date, time, integer, uuid) TO service_role;
+
+COMMENT ON FUNCTION get_available_tables_for_reservation IS 'Obtiene todas las mesas con su disponibilidad para el admin (modo manual)';
 
 -- ========================================
 -- VERIFICACIÓN

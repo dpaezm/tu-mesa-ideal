@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/lib/supabase";
@@ -45,17 +45,20 @@ const ReservationForm = () => {
     setCurrentStep("guests");
   };
 
-  const handleGuestsSelect = (guests: number, withChildren: boolean) => {
+  const handleGuestsSelect = (guests: number, withChildrenParam: boolean) => {
     setSelectedGuests(guests);
-    setWithChildren(withChildren);
-    setCurrentStep("time");
+    setWithChildren(withChildrenParam);
+    
+    // Usar setTimeout para asegurar que el estado se actualice antes de cambiar de paso
+    setTimeout(() => {
+      setCurrentStep("time");
+    }, 0);
   };
 
   const handleTimeSelect = (time: string, zoneName?: string, zoneId?: string) => {
     setSelectedTime(time);
     setSelectedZone(zoneName);
     setSelectedZoneId(zoneId);
-    console.log("📍 Zona seleccionada:", zoneName, "ID:", zoneId);
     setCurrentStep("info");
   };
 

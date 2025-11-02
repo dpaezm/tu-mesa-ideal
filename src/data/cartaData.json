@@ -11,10 +11,10 @@
       { "name": "Sardinas ahumadas sobre queso de vaca", "price": "13,00", "description": "" }
     ],
     "verduras": [
-      { "name": "Patatas bravas", "price": "4,00", "price2": "5,90", "description": "" },
-      { "name": "Calabacín brasa", "price": "5,80", "description": "" },
-      { "name": "Boniato brasa", "price": "6,00", "description": "" },
-      { "name": "Tomate brasa", "price": "4,00", "price2": "5,50", "description": "" },
+      { "name": "Patatas a la brasa", "price": "4,00", "price2": "5,90", "description": "" },
+      { "name": "Calabacín a la brasa", "price": "5,80", "description": "" },
+      { "name": "Boniato a la brasa", "price": "6,00", "description": "" },
+      { "name": "Tomate a la brasa", "price": "4,00", "price2": "5,50", "description": "" },
       { "name": "Patatas fritas", "price": "4,00", "price2": "6,00", "description": "" },
       { "name": "Patatas rustic", "price": "7,00", "description": "" },
       { "name": "Pimiento a la brasa", "price": "5,90", "description": "" },
@@ -35,21 +35,8 @@
       { "name": "Picaña", "price": "22,50", "description": "" },
       { "name": "Bife (Ojo de bife)", "price": "26,00", "description": "" },
       { "name": "Bife de chorizo", "price": "24,50", "description": "" },
-      { "name": "Brocheta de pollo (Contramuslo)", "price": "14,50", "description": "" },
-      { "name": "Chuletón de vaca", "price": "65,00/Kg", "description": "" }
-    ],
-    "burgers": [
-      { "name": "Bacon", "price": "11,00", "description": "Hamburguesa de vacuno 200grs, queso cheddar y bacon" },
-      {
-        "name": "Special",
-        "price": "11,00",
-        "description": "Hamburguesa de vacuno 200grs, queso, tomate, mix de lechuga y cebolla"
-      },
-      {
-        "name": "Doble con Queso",
-        "price": "14,90",
-        "description": "Doble hamburguesa de vacuno 400grs y extra de queso cheddar"
-      }
+      { "name": "Brocheta de pollo (Contramuslo deshuesado)", "price": "14,50", "description": "" },
+      { "name": "Chuletón de Vaca Frisona de Lugo", "price": "65,00/Kg", "description": "" }
     ],
     "ensaladas": [
       { "name": "Classic", "price": "5,00", "price2": "8,00", "description": "Tomate, lechuga y cebolla" },
@@ -67,6 +54,19 @@
         "name": "Langostinos y aguacate",
         "price": "14,90",
         "description": "Langostinos braseados, aguacate, mix de lechuga, tomates y huevo"
+      }
+    ],
+    "burgers": [
+      { "name": "Bacon", "price": "11,00", "description": "Hamburguesa de vacuno 200grs, queso cheddar y bacon" },
+      {
+        "name": "Special",
+        "price": "11,00",
+        "description": "Hamburguesa de vacuno 200grs, queso, tomate, mix de lechuga y cebolla"
+      },
+      {
+        "name": "Doble con Queso",
+        "price": "14,90",
+        "description": "Doble hamburguesa de vacuno 400grs y extra de queso cheddar"
       }
     ]
   },

@@ -3,9 +3,12 @@ import StepHeader from "./StepHeader";
 import { useRestaurantConfig } from "@/contexts/RestaurantConfigContext";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Phone } from "lucide-react";
+import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 interface GuestsStepProps {
-  onNext: (guests: number) => void;
+  onNext: (guests: number, withChildren: boolean) => void;
   onBack: () => void;
   onStepClick?: (step: "date" | "guests" | "time") => void;
   selectedDate?: Date;
@@ -14,13 +17,14 @@ interface GuestsStepProps {
 const GuestsStep = ({ onNext, onBack, onStepClick, selectedDate }: GuestsStepProps) => {
   const { config } = useRestaurantConfig();
   const guestOptions = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [withChildren, setWithChildren] = useState(false);
 
   const handleGuestSelection = (guests: number) => {
     if (guests === 1) {
       alert("Para reservas de 1 persona contacta en el teléfono del restaurante");
       return;
     }
-    onNext(guests);
+    onNext(guests, withChildren);
   };
 
   {
@@ -39,6 +43,19 @@ const GuestsStep = ({ onNext, onBack, onStepClick, selectedDate }: GuestsStepPro
 
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h2 className="text-lg font-medium text-primary mb-6">¿Cuántos sois?</h2>
+
+        {/* Checkbox para niños */}
+        <div className="flex items-center space-x-2 mb-6 p-4 bg-gray-50 rounded-lg border ">
+          <Checkbox
+            id="withChildren"
+            checked={withChildren}
+            onCheckedChange={(checked) => setWithChildren(checked as boolean)}
+            className="border-primary data-[state=checked]:bg-primary"
+          />
+          <Label htmlFor="withChildren" className="text-sm font-medium text-gray-700 cursor-pointer">
+            ¿Vienes con niños?
+          </Label>
+        </div>
 
         <div className="grid grid-cols-4 gap-3 mb-8">
           {guestOptions.map((guests) => (

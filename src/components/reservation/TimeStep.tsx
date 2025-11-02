@@ -103,12 +103,12 @@ const TimeStep = ({
 
       if (!notInPast) return;
 
-      // Si viene con niños, solo mostrar horarios 13:30 y 15:15
-      if (withChildren) {
+      // Si viene con niños, en comida solo mostrar 13:30 y 15:15
+      // En cena, mostrar todos los horarios disponibles
+      if (withChildren && isLunchTime) {
         if (!matchesChildFriendlyTime(slot.time)) {
           return;
         }
-        console.log("✅ Horario apto para niños encontrado:", slot.time);
       }
 
       const zoneName = slot.zone_name || "Sin zona";

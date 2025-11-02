@@ -72,6 +72,7 @@ const RestaurantLayout = () => {
     const containerSize = 1200; // Usar el ancho fijo del contenedor
     const pixelValue = (value / 100) * containerSize;
     const gridSnappedValue = Math.round(pixelValue / GRID_SIZE) * GRID_SIZE;
+
     return (Math.max(0, Math.min(containerSize, gridSnappedValue)) / containerSize) * 100;
   };
   const handleDrop = async (e: React.DragEvent) => {
@@ -179,6 +180,7 @@ const RestaurantLayout = () => {
         </Button>
       </div>
 
+
       <Tabs defaultValue="layout" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="layout" className="flex items-center gap-2">
@@ -197,6 +199,7 @@ const RestaurantLayout = () => {
             <Button onClick={loadTables} variant="outline">
               Actualizar Layout
             </Button>
+
           </div>
 
           <Card>

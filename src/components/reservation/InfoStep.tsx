@@ -12,10 +12,11 @@ interface InfoStepProps {
   selectedDate?: Date;
   selectedGuests?: number;
   selectedTime?: string;
+  withChildren?: boolean;
   onStepClick?: (step: "date" | "guests" | "time") => void;
 }
 
-const InfoStep = ({ onNext, onBack, selectedDate, selectedGuests, selectedTime, onStepClick }: InfoStepProps) => {
+const InfoStep = ({ onNext, onBack, selectedDate, selectedGuests, selectedTime, withChildren = false, onStepClick }: InfoStepProps) => {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -30,10 +31,18 @@ const InfoStep = ({ onNext, onBack, selectedDate, selectedGuests, selectedTime, 
       return;
     }
 
+    // Añadir "Mesa con niños" al inicio de los comentarios si viene con niños
+    let finalComments = formData.comments;
+    if (withChildren) {
+      finalComments = formData.comments 
+        ? `Mesa con niños. ${formData.comments}` 
+        : "Mesa con niños";
+    }
+
     onNext({
       fullName: formData.fullName,
       phone: formData.phone,
-      comments: formData.comments,
+      comments: finalComments,
     });
   };
 
@@ -83,8 +92,7 @@ const InfoStep = ({ onNext, onBack, selectedDate, selectedGuests, selectedTime, 
 
           <div>
             <label className="block text-sm font-medium mb-2">
-              Observaciones (¿Necesidades especiales? ¿Vienes con carrito? Cuéntanos toda la información que sea útil
-              para hacer tu experiencia lo mejor posible.)
+              Observaciones (¿Vienes con carrito? ¿Necesitas trona? No se admiten mascotas en el interior del local )
             </label>
             <Textarea
               value={formData.comments}

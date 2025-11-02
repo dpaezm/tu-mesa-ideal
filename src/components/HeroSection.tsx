@@ -65,7 +65,7 @@ const HeroSection = () => {
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed transition-all duration-500 delay-100">
           {config?.hero_subtitle ||
-            "Vive una experiencia gastronómica única en nuestro restaurante. Reserva ahora y disfruta de sabores excepcionales."}
+            "Carnes"}
         </p>
         <div className="transition-all duration-500 delay-200">
           <Button
